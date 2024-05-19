@@ -24,6 +24,7 @@ To use this script, you need to have Python installed on your system. Additional
 pip3 install -r requirements.txt
 
 ## Usage
+```
 
 1. Clone the repository:
 
