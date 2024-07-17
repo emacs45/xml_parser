@@ -1,0 +1,8 @@
+# created by virtualenv automatically
+*
+
+# Except these files and directories
+!.gitignore
+!pyenv.cfg
+!README.md
+!xml_parser.py

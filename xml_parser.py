@@ -15,14 +15,18 @@ def get_xml_info(root: ET) -> dict:
     tags = ['Customer', 'Period', 'ReportType', 'Licenses/License']
 
     for tg in tags:
+        try:
 
-        for child in root.findall(tg):
-            if child.tag == 'License':
-                for ch in child:
-                    if ch.tag == 'LicenseCount':
-                        result[ch.tag] = ch.text
-            else:    
-                result[child.tag] = child.text  
+            for child in root.findall(tg):
+                if child.tag == 'License':
+                    for ch in child:
+                        if ch.tag == 'LicenseCount':
+                            result[ch.tag] = ch.text
+                else:    
+                    result[child.tag] = child.text  
+        
+        except AttributeError as e:
+            print(f'Error finding tag {tg}: {e}')
 
     return result
 
@@ -51,6 +55,8 @@ def search_xml_files(path: str, target_path: str, file_pattern: str) -> None:
                 try:
                     root = ET.parse(target_file).getroot()
                     write_report(get_xml_info(root), target_path, file)
+                except ET.ParseError as e:
+                        print(f'Error parsing {file}: {e}')
                 except FileNotFoundError as e:
                     print(f'Error processing {file}: {e}')
 #------------------------------------------------------------------  
